@@ -64,13 +64,13 @@ import io
 import logging
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import zipfile
 
 from docopt import docopt
 import requests
-from sh import convert
 
 from . import Dataset
 from ._compat import TemporaryDirectory, urlunsplit
@@ -165,7 +165,7 @@ def download(target, temp_dir, host=DEFAULT_HOST, path=DEM_PATH,
 
         # Concatenation of chunks
         if target is not None:
-            convert(tif_path, '-quiet', 'GRAY:{}'.format(tgt_path))
+            subprocess.check_call(['convert', tif_path, '-quiet', 'GRAY:{}'.format(tgt_path)])
 
             target_size = os.stat(tgt_path).st_size
             if target_size != expect_size:
