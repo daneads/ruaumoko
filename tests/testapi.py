@@ -3,7 +3,10 @@ Test of Flask-based web API.
 """
 import logging
 
-from flask.ext.testing import TestCase
+try:
+    from flask.ext.testing import TestCase
+except ImportError:
+    from flask_testing import TestCase
 from ruaumoko.dataset import Dataset
 from ruaumoko.api import app
 
